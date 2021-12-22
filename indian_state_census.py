@@ -3,6 +3,7 @@
     @Author : mukul
     @Date :   21-12-2021
 """
+import csv
 import pandas as pd
 from indian_census_exception import IndianCensusException
 
@@ -36,9 +37,27 @@ class IndianCensus:
         else:
             raise IndianCensusException("File is Invalid")
 
+    def delimiter_validation(self, csv_file):
+        with open(csv_file, newline="") as file_data:
+            dialect = csv.Sniffer().sniff(file_data.read())
+            if not dialect.delimiter == ',':
+                raise IndianCensusException("Error occurred in delimiter matching")
+            else:
+                return dialect.delimiter
+
 
 if __name__ == '__main__':
     csv_data = IndianCensus()
     file_name = "indian_census_data.csv"
+
     print("No. Of Data", csv_data.count_number_of_records(file_name))
-    print("Name of file is : ", csv_data.check_file_extension(file_name))
+
+    try:
+        print("Name of file is : ", csv_data.check_file_extension(file_name))
+    except IndianCensusException as exception:
+        print(exception.__str__())
+
+    try:
+        print("Delimiter is : ", csv_data.delimiter_validation(file_name))
+    except IndianCensusException as ex:
+        print(ex.__str__())

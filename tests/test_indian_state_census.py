@@ -37,3 +37,20 @@ class TestCase:
         with pytest.raises(IndianCensusException) as exception:
             indian_census.check_file_extension(self.wrong_file_extension)
         assert exception.value.message == expected
+
+    def test_match_delimiter(self, indian_census):
+        """
+            desc: test the method to check delimiter
+        """
+        expected = ','
+        result = indian_census.delimiter_validation(self.file_path)
+        assert result == expected
+
+    def test_not_match_delimiter(self, indian_census):
+        """
+            desc: test the method to raise exception while checking delimiter
+        """
+        expected = "Error occurred in delimiter matching"
+        with pytest.raises(IndianCensusException) as exception:
+            indian_census.delimiter_validation(self.wrong_file_extension)
+        assert exception.value.message == expected
