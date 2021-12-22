@@ -1,4 +1,3 @@
-
 import pytest
 from indian_state_census import IndianCensus
 from indian_census_exception import IndianCensusException
