@@ -45,6 +45,14 @@ class IndianStateCode:
             else:
                 return dialect.delimiter
 
+    def validate_header(self, csv_file):
+        with open(csv_file, newline="") as file_data:
+            dialect = csv.Sniffer().has_header(file_data.read())
+            if not dialect:
+                raise IndianCensusException("Heading is corrupted")
+            else:
+                return dialect
+
 
 if __name__ == "__main__":
     csv_data = IndianStateCode()
@@ -59,5 +67,10 @@ if __name__ == "__main__":
 
     try:
         print("Delimiter is :", csv_data.delimiter_validation(file_name))
+    except IndianCensusException as ex:
+        print(ex.__str__())
+
+    try:
+        print("Is Header Correct? :", csv_data.validate_header(file_name))
     except IndianCensusException as ex:
         print(ex.__str__())
