@@ -5,8 +5,8 @@ from indian_census_exception import IndianCensusException
 
 
 class TestCase:
-
-    file_name = "../indian_census_data.csv"
+    file_path = "../indian_census_data.csv"
+    wrong_file_extension = "../indian_census_data.txt"
 
     @pytest.fixture()
     def indian_census(self):
@@ -17,6 +17,23 @@ class TestCase:
         """
             desc: test the method to count number of records in file
         """
-        result = indian_census.count_number_of_records(self.file_name)
-        assert result == 29
+        expected = 29
+        result = indian_census.count_number_of_records(self.file_path)
+        assert result == expected
 
+    def test_match_file_path(self, indian_census):
+        """
+            desc: test the method to check file extension
+        """
+        expected = self.file_path
+        result = indian_census.check_file_extension(self.file_path)
+        assert result == expected
+
+    def test_not_match_file_path(self, indian_census):
+        """
+            desc: test the method to raise exception while checking file extension
+        """
+        expected = "File is Invalid"
+        with pytest.raises(IndianCensusException) as exception:
+            indian_census.check_file_extension(self.wrong_file_extension)
+        assert exception.value.message == expected
