@@ -54,3 +54,20 @@ class TestCase:
         with pytest.raises(IndianCensusException) as exception:
             indian_census.delimiter_validation(self.wrong_file_extension)
         assert exception.value.message == expected
+
+    def test_match_header(self, indian_census):
+        """
+            desc: test the method to check header
+        """
+        expected = True
+        result = indian_census.validate_header(self.file_path)
+        assert result == expected
+
+    def test_not_match_header(self, indian_census):
+        """
+            desc: test the method to raise exception while checking headers
+        """
+        expected = "Heading is corrupted"
+        with pytest.raises(IndianCensusException) as exception:
+            indian_census.validate_header(self.wrong_file_extension)
+        assert exception.value.message == expected

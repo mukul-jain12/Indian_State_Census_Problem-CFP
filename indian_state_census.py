@@ -45,19 +45,32 @@ class IndianCensus:
             else:
                 return dialect.delimiter
 
+    def validate_header(self, csv_file):
+        with open(csv_file, newline="") as file_data:
+            dialect = csv.Sniffer().has_header(file_data.read())
+            if not dialect:
+                raise IndianCensusException("Heading is corrupted")
+            else:
+                return dialect
+
 
 if __name__ == '__main__':
     csv_data = IndianCensus()
     file_name = "indian_census_data.csv"
 
-    print("No. Of Data", csv_data.count_number_of_records(file_name))
+    print("No. Of Data :", csv_data.count_number_of_records(file_name))
 
     try:
-        print("Name of file is : ", csv_data.check_file_extension(file_name))
+        print("Name of file is :", csv_data.check_file_extension(file_name))
     except IndianCensusException as exception:
         print(exception.__str__())
 
     try:
-        print("Delimiter is : ", csv_data.delimiter_validation(file_name))
+        print("Delimiter is :", csv_data.delimiter_validation(file_name))
+    except IndianCensusException as ex:
+        print(ex.__str__())
+
+    try:
+        print("Is Header Correct? :", csv_data.validate_header(file_name))
     except IndianCensusException as ex:
         print(ex.__str__())
