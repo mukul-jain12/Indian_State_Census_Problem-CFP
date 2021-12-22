@@ -1,11 +1,12 @@
 import pytest
 from indian_state_code import IndianStateCode
+from indian_census_exception import IndianCensusException
 
 
 class TestCase:
 
     file_path = "../indian_state_code_data.csv"
-    wrong_file_path = "../indian_state_code_data.txt"
+    wrong_file_extension = "../indian_state_code_data.txt"
 
     @pytest.fixture()
     def state_code(self):
@@ -19,3 +20,20 @@ class TestCase:
         expected = 37
         result = state_code.count_number_of_records(self.file_path)
         assert result == expected
+
+    def test_match_file_path(self, state_code):
+        """
+            desc: test the method to check file extension
+        """
+        expected = self.file_path
+        result = state_code.check_file_extension(self.file_path)
+        assert result == expected
+
+    def test_not_match_file_path(self, state_code):
+        """
+            desc: test the method to raise exception while checking file extension
+        """
+        expected = "File is Invalid"
+        with pytest.raises(IndianCensusException) as exception:
+            state_code.check_file_extension(self.wrong_file_extension)
+        assert exception.value.message == expected
