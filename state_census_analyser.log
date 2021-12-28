@@ -1,0 +1,18 @@
+ERROR : root : 2021-12-28 22:41:35,311 : Header is Incorrect
+Traceback (most recent call last):
+  File "F:/CFP/IndianCensusPrblm/indian_state_census.py", line 81, in <module>
+    print("Is Header Correct? :", csv_data.validate_header(file_name))
+  File "F:/CFP/IndianCensusPrblm/indian_state_census.py", line 57, in validate_header
+    raise IndianCensusException("Heading is corrupted")
+indian_census_exception.IndianCensusException: Heading is corrupted
+INFO : root : 2021-12-28 22:44:21,900 : Load Indian Census Data
+INFO : root : 2021-12-28 22:44:21,900 : Data Loaded Completely
+ERROR : root : 2021-12-28 22:44:21,905 : Delimiter is Invalid
+INFO : root : 2021-12-28 22:45:39,535 : Load Indian Census Data
+INFO : root : 2021-12-28 22:45:39,540 : Data Loaded Completely
+DEBUG : root : 2021-12-28 22:45:39,540 : Number of records are :29
+ERROR : root : 2021-12-28 22:45:39,542 : Delimiter is Invalid
+INFO :: root :: 2021-12-28 22:51:59,051 :: Load Indian Census Data
+INFO :: root :: 2021-12-28 22:51:59,053 :: Data Loaded Completely
+DEBUG :: root :: 2021-12-28 22:51:59,053 :: Number of records are :29
+ERROR :: root :: 2021-12-28 22:51:59,056 :: Delimiter is Invalid
